@@ -1,6 +1,7 @@
 # ref: https://stackoverflow.com/questions/24346872/python-equivalent-of-a-given-wget-command
 import wget
 import pandas as pd
+import os
 
 # get metadata of datasets, had to be obtained manually
 ids = ["BSC18CA12-01", "BSC00CA12-01", "BSC06CA12-01", "BSC12CA12-01"]
@@ -26,6 +27,8 @@ for i in zip(start_dates, end_dates, ids, init_times):
     for date in dates:
         # build URL string to download from and directory & filename to download to
         url = "https://firesmoke.ca/forecasts/" + forecast_id + "/" + date + init_time + "/dispersion.nc"
-        directory = "/Users/arleth/Mount/firesmoke/" + forecast_id + "/dispersion_" + date + ".nc"
+        directory = "/Users/alireza/thesis/data/firesmoke/" + forecast_id + "/dispersion_" + date + ".nc"
+        # Create the directory if it doesn't exist
+        os.makedirs(os.path.dirname(directory), exist_ok=True)
         wget.download(url, out=directory)
     
